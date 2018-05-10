@@ -1,1 +1,1 @@
-# coursera_AngularjS
+# coursera_AngularJS
