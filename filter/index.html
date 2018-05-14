@@ -14,7 +14,9 @@
     <div ng-controller='MsgController'>
       {{name}} has a message for you: <br>
       Original: {{sayMessage()}} <br>
-      Loves: {{sayLovesMessage()}}
+      Loves: {{sayLovesMessage()}} <br>
+      Truth: {{sayLovesMessage() | truth : 'I' : 'Everyone'}} <br>
+      Big truth: {{sayMessage() | truth : 'I' : 'Everyone' | uppercase}}
       <div>
         <button ng-click="changeImg()">change</button>
         Cost: {{ paintCost | currency : "#blah" : 4}}
