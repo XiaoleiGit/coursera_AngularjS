@@ -21,9 +21,8 @@ function MenuSearchService($http,ApiBasePath) {
     return $http({
       method: "GET",
       url: ApiBasePath
-    }).then(function(result) {
-      var foundItems
-      return foundItems;
+    }).then(function(response) {
+      var list
     });
   };
 }
