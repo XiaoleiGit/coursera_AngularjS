@@ -9,10 +9,20 @@ angular.module('NarrowItDownApp',[])
 
 function FoundItems() {
   var ddo = {
-    templateUrl: 'foundItems.html'
+    templateUrl: 'foundItems.html',
+    scope:{
+      items: '<',
+      onRemove: '&',
+    },
+    controller: FoundItemDirectiveCtrl,
+    controllerAs: 'narrow',
+    bindToController: true
   };
-
   return ddo;
+}
+
+function FoundItemDirectiveCtrl() {
+  var narrow = this;
 }
 
 NarrowItDownController.$inject=['MenuSearchService'];
@@ -20,7 +30,25 @@ function NarrowItDownController(MenuSearchService) {
   var narrow = this;
   narrow.searchTerm = "";
   narrow.found = function(searchTerm) {
-    return MenuSearchService.getMatchedMenuItems(searchTerm);
+    var promise = MenuSearchService.getMatchedMenuItems();
+    promise.then(function(response) {
+      narrow.fullList = response.data["menu_items"];
+      narrow.items = [];
+      narrow.fullList.forEach(element => {
+        if(element["description"].includes(searchTerm)) {
+          narrow.items.push(element);
+        }
+      });
+      console.log(narrow.items);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+
+    narrow.removeItem = function (itemIndex) {
+      narrow.items.splice(itemIndex, 1);
+    };
+
   };
 };
 
@@ -28,24 +56,13 @@ function NarrowItDownController(MenuSearchService) {
 MenuSearchService.$inject=['$http','ApiBasePath'];
 function MenuSearchService($http, ApiBasePath) {
     var service = this;
-    service.getMatchedMenuItems = function(searchTerm) {
+    service.getMatchedMenuItems = function() {
       return $http({
         method: "GET",
         url: ApiBasePath
-      }).then(function(response) {
-        var fullList = response.data["menu_items"];
-        var foundItems = [];
-        fullList.forEach(element => {
-          if(element["description"].includes(searchTerm)) {
-            foundItems.push(element);
-          }
-        });
-        return foundItems;
       })
-      .catch(function(error) {
-        console.log(error);
-      });
-
     };
+
+
   };
 })();
