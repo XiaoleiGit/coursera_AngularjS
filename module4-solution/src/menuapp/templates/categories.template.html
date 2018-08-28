@@ -1,3 +1,10 @@
 <div>
-  This is the categories html.
+  This is the categories. Want to see the details please click the short name.
+  <ol>
+    <li ng-repeat="item in cactrl.categories_list">
+      <span class="text">Short name: </span>{{item.short_name}},
+      <span class="text">Name: </span>{{item.name}},
+      <span class="text" ng-if=(item.special_instructions!=="")>Special instructions: </span>{{item.special_instructions}}
+    </li>
+  </ol>
 </div>
