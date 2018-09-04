@@ -1,10 +1,11 @@
+<a ui-sref="home">Home</a> &lt; <span>Categories</span>
+
 <div>
-  This is the categories. Want to see the details please click the short name.
-  <ol>
-    <li ng-repeat="item in cactrl.categories_list">
+  <ul>
+    <li ng-repeat="item in cactrl.categories_list" ui-sref="items" ng-click="cactrl.selected.value = $index">
       <span class="text">Short name: </span>{{item.short_name}},
       <span class="text">Name: </span>{{item.name}},
-      <span class="text" ng-if=(item.special_instructions!=="")>Special instructions: </span>{{item.special_instructions}}
+      <span class="text" ng-if=(item.special_instructions!=="")>Special instructions: </span>{{item.special_instructions}}{{$index}}
     </li>
-  </ol>
+  </ul>
 </div>

@@ -30,16 +30,16 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     }
   })
 
-  // .state('item', {
-  //   url: '/item',
-  //   templateUrl: 'src/menuapp/templates/items.template.html',
-  //   controller: 'ItemsController as itemctrl',
-  //   resolve: {
-  //     categories: ['MenuDataService', function(MenuDataService) {
-  //       return MenuDataService.getAllCategorie();
-  //     }]
-  //   }
-  // })
+  .state('items', {
+    url: '/items',
+    templateUrl: 'src/menuapp/templates/items.template.html',
+    controller: 'ItemsController as itemsctrl',
+    resolve: {
+      items: ['MenuDataService', function(MenuDataService) {
+        return MenuDataService.getItemsForCategory("A");
+      }]
+    }
+  })
 
 }
 
